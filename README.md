@@ -37,13 +37,13 @@ Baixe a versão mais recente na página de [Releases](https://github.com/adriano
 ### Debian e derivados
 
 ```sh
-sudo apt install ./easyphone_0.4.0_amd64.deb
+sudo apt install ./easyphone_0.4.1_amd64.deb
 ```
 
 ### Instalação portátil
 
 ```sh
-tar -xzf easyphone-linux-x86_64-v0.4.0.tar.gz
+tar -xzf easyphone-linux-x86_64-v0.4.1.tar.gz
 ./easyphone/INSTALL-LOCAL.sh
 ```
 

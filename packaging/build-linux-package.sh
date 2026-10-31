@@ -16,11 +16,16 @@ NATIVE_BUILD="${EASYPHONE_NATIVE_BUILD:-$ROOT/native-wx/build}"
 [ -d "$NATIVE_BUILD/runtime-lib" ] || { echo "Bibliotecas wxWidgets ausentes em $NATIVE_BUILD/runtime-lib" >&2; exit 1; }
 mkdir -p "$OUT"
 if [ -e "$APP" ]; then echo "Staging já existe: $APP (preservado; mova-o manualmente para refazer)" >&2; exit 1; fi
-mkdir -p "$APP/electron/resources/app/packaging/baresip/bin" "$APP/electron/resources/app/packaging/baresip/lib" "$APP/electron/resources/app/packaging/baresip/modules"
-mkdir -p "$APP/electron/resources/app/packaging/native-wx/bin/assets" "$APP/electron/resources/app/packaging/native-wx/lib"
-cp -a "$ELECTRON_DIST" "$APP/electron"
+mkdir -p "$APP"
+# Copy the runtime directory's contents. Copying the directory itself into an
+# existing APP/electron (created too early) nests it under electron/dist and
+# breaks the launcher, which expects electron/electron.
+mkdir -p "$APP/electron"
+cp -a "$ELECTRON_DIST/." "$APP/electron/"
 chmod 755 "$APP/electron/electron" "$APP/electron/chrome-sandbox" 2>/dev/null || true
 chmod -R u+rwX,go+rX "$APP/electron"
+mkdir -p "$APP/electron/resources/app/packaging/baresip/bin" "$APP/electron/resources/app/packaging/baresip/lib" "$APP/electron/resources/app/packaging/baresip/modules"
+mkdir -p "$APP/electron/resources/app/packaging/native-wx/bin/assets" "$APP/electron/resources/app/packaging/native-wx/lib"
 mkdir -p "$APP/electron/resources/app"
 cp -a "$ROOT/electron" "$ROOT/engine" "$ROOT/renderer" "$ROOT/ui" "$ROOT/contracts" "$ROOT/package.json" "$APP/electron/resources/app/"
 # A distribuição usa a bridge IPC real; fixtures de QA não fazem parte do produto.

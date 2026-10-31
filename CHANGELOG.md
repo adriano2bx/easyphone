@@ -1,5 +1,9 @@
 # Notas de versão
 
+## 0.4.1 — correção do lançador Linux
+
+- Corrigida a estrutura do runtime Electron nos pacotes Linux. O binário agora é instalado em `electron/electron`, no caminho esperado pelo lançador.
+
 ## 0.4.0 — easyphone para Linux x86_64
 
 - Primeira distribuição pública sob a marca easyphone.
