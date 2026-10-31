@@ -1,0 +1,9 @@
+{
+  "name": "easyphone",
+  "productName": "Easyphone",
+  "version": "0.4.0",
+  "description": "Easyphone — softphone SIP",
+  "main": "electron/main.cjs",
+  "private": true,
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "product": "easyphone",
+    "version": "1.0",
+    "status": "Base visual para implementação",
+    "brand_direction": "Native Premium / Conectado"
+  },
+  "color": {
+    "brand": "#38F094",
+    "background": "#202225",
+    "titlebar": "#23262A",
+    "sidebar": "#1D2023",
+    "panel": "#24272B",
+    "surface": "#2C3034",
+    "border": "#383D41",
+    "text": "#F0F1EE",
+    "muted": "#A4ADB3",
+    "light": "#F2F3F0",
+    "ink": "#202225",
+    "danger": "#C83847",
+    "onBrand": "#102A1C"
+  },
+  "typography": {
+    "windows": "Segoe UI",
+    "macOS": "system-ui / SF Pro (fornecida pelo sistema)",
+    "linux": "Noto Sans, DejaVu Sans, sans-serif",
+    "fallback": "system-ui, sans-serif",
+    "size_px": {
+      "caption": 11,
+      "body": 13,
+      "control": 14,
+      "heading": 20,
+      "keypad": 24
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600
+    }
+  },
+  "spacing_px": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32
+  ],
+  "radius_px": {
+    "small": 6,
+    "control": 8,
+    "window": 12,
+    "appIcon": 218
+  },
+  "control_height_px": {
+    "compact": 32,
+    "default": 40,
+    "keypad": 50
+  },
+  "focus": {
+    "width_px": 2,
+    "color": "#38F094",
+    "offset_px": 2
+  },
+  "layout_reference_px": {
+    "full": {
+      "width": 1080,
+      "height": 680,
+      "min_width": 920,
+      "min_height": 600
+    },
+    "compact_dialer": {
+      "width": 360,
+      "height": 650
+    },
+    "compact_call": {
+      "width": 360,
+      "height": 460
+    },
+    "note": "Dimensões propostas em pixels lógicos. Validar com a biblioteca de UI e a escala do sistema."
+  }
+}

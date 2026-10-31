@@ -1,0 +1,676 @@
+/* Easyphone: interface de telefonia independente do console de atendimento. */
+:root {
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --surface-muted: #f1f5f9;
+  --border: #e2e8f0;
+  --border-subtle: #edf2f7;
+  --ink: #0f172a;
+  --ink-secondary: #334155;
+  --ink-muted: #64748b;
+  --ink-light: #94a3b8;
+
+  --brand-navy: #17233f;
+  --brand-teal: #0d9488;
+  --brand-teal-dark: #0f766e;
+  --brand-teal-darker: #115e59;
+  --brand-teal-bg: #f0fdfa;
+  --focus: #14b8a6;
+
+  --call-bg: #182230;
+  --call-bg-alt: #1e293b;
+  --call-border: #334155;
+  --call-muted: #94a3b8;
+  --call-mute: #fbbf24;
+  --call-mute-hover: #fcd34d;
+  --call-mute-ink: #111827;
+
+  --green: #10b981;
+  --green-ink: #065f46;
+  --amber: #f59e0b;
+  --amber-ink: #92400e;
+  --red: #dc2626;
+  --red-dark: #b91c1c;
+  --red-ink: #991b1b;
+  --red-bg: #fef2f2;
+
+  --radius: 6px;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+}
+
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+h2, h3, p, ul, fieldset { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }
+button:disabled, select:disabled { cursor: default; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.app { display: flex; flex-direction: column; height: 100vh; min-width: 0; }
+
+/* Barra superior */
+.titlebar {
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  padding: 0 10px 0 14px;
+  border-bottom: 1px solid var(--call-border);
+  background: var(--call-bg);
+  color: #f0f1ee;
+  user-select: none;
+}
+.brand { grid-column: 2; grid-row: 1; justify-self: center; display: flex; align-items: center; }
+.brand-wordmark {
+  position: relative;
+  display: block;
+  width: min(246px, calc(100vw - 84px));
+  height: 43px;
+  flex: none;
+}
+.brand-wordmark {
+  background: url("./assets/easyphone-logo-negative.png") center / contain no-repeat;
+}
+
+/* Logo personalizado: caixa fixa com proporção preservada. */
+.brand-custom {
+  display: block;
+  width: min(246px, calc(100vw - 84px));
+  height: 43px;
+  flex: none;
+  object-fit: contain;
+  object-position: center;
+}
+body[data-mode="compact"] .brand-custom { width: 260px; height: 45px; }
+
+.icon-btn {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: var(--radius);
+  color: var(--call-muted);
+}
+.icon-btn:hover { background: var(--call-bg-alt); color: #fff; }
+.icon-hangup { transform: rotate(135deg); }
+.icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Painel de chamada (grafite discreto) */
+.call-panel {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--call-bg);
+  color: #fff;
+}
+.call-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; min-width: 0; }
+.call-party { min-width: 0; }
+.call-name { font-size: 16px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.call-uri { margin-top: 1px; font-size: 12px; color: var(--call-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.call-meta { margin-top: 3px; font-size: 12px; color: var(--call-muted); }
+.call-timer { flex: none; font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.call-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.call-controls { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.ctl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+  height: 56px;
+  border: 1px solid var(--call-border);
+  border-radius: var(--radius);
+  background: var(--call-bg-alt);
+  color: #fff;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.ctl:hover:not(:disabled) { border-color: var(--call-muted); }
+.ctl[aria-pressed="true"],
+.ctl[aria-expanded="true"] { background: #fff; border-color: #fff; color: var(--call-bg); }
+.ctl:disabled { opacity: 0.4; }
+/* Mudo: o estado aparece em três sinais, sempre: cor (âmbar quando ligado), ícone (microfone cortado)
+   e texto ("ativo" / "inativo"), em Normal e Compacto. aria-pressed leva o estado a leitores de tela.
+   Não reutiliza o branco de Teclado/Transferir, que também indica "aberto". Contraste #111827 sobre #fbbf24 ≈ 11:1. */
+/* .ctl-text agrupa rótulo e estado: no Normal some (vira filhos diretos da coluna), no Compacto vira coluna à direita do ícone. */
+.ctl-text { display: contents; }
+.ctl .icon-mic-off { display: none; }
+.ctl-state { color: var(--call-muted); font-size: 10px; line-height: 1; font-weight: 400; }
+#mute-btn[aria-pressed="true"] {
+  background: var(--call-mute);
+  border-color: var(--call-mute);
+  color: var(--call-mute-ink);
+  font-weight: 600;
+}
+#mute-btn[aria-pressed="true"] .icon-mic { display: none; }
+#mute-btn[aria-pressed="true"] .icon-mic-off { display: block; }
+#mute-btn[aria-pressed="true"] .ctl-state { color: var(--call-mute-ink); font-weight: 600; }
+#mute-btn[aria-pressed="true"]:hover:not(:disabled) { background: var(--call-mute-hover); border-color: var(--call-mute-hover); }
+#mute-btn[aria-pressed="true"]:disabled { opacity: 0.4; }
+.ctl-end { background: var(--red); border-color: var(--red); }
+.ctl-end:hover:not(:disabled) { background: var(--red-dark); border-color: var(--red-dark); }
+/* Teclado DTMF na chamada: a mesma grade plana do discador, sobre o grafite (dígitos brancos, ≥ 12:1). */
+.call-dtmf .key { background: var(--call-bg); color: #fff; border-color: var(--call-border); }
+@media (hover: hover) {
+  .call-dtmf .key:hover { background: var(--call-bg-alt); }
+}
+.call-dtmf .key:active { background: var(--call-bg-alt); }
+.call-dtmf .key:focus-visible { outline-color: #fff; }
+.call-panel .transfer-form { display: flex; gap: 6px; }
+.call-panel .transfer-form input { flex: 1; min-width: 0; }
+
+/* Chamada em modo normal: a superfície de chamada ocupa a área restante e a seleção de conta sai de cena.
+   Só na aba Discador: o painel cresce e a área do discador some. Em outras abas, o painel fica no topo. */
+body[data-mode="normal"]:not([data-call="none"])[data-view="dial"] .views { display: none; }
+body[data-mode="normal"]:not([data-call="none"])[data-view="dial"] .call-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 22px 20px 18px;
+}
+body[data-mode="normal"] .call-panel { gap: 16px; }
+/* Identificação e timer centralizados no espaço livre entre o topo do painel e as ações (margens automáticas iguais).
+   Com DTMF ou transferência abertos, o bloco sobe para o topo e as ações voltam para a base (regras com :has abaixo). */
+body[data-mode="normal"] .call-head { flex-direction: column; align-items: stretch; gap: 10px; order: 0; margin: auto 0; }
+body[data-mode="normal"] .call-name { font-size: 22px; line-height: 1.25; }
+body[data-mode="normal"] .call-uri { font-size: 14px; }
+body[data-mode="normal"] .call-meta { font-size: 13px; }
+body[data-mode="normal"] .call-timer { min-height: 46px; font-size: 40px; line-height: 1.1; font-weight: 500; }
+/* Ordem no painel: identificação no topo, teclado DTMF e transferência no meio, ações sempre na base. */
+body[data-mode="normal"] .call-dtmf { order: 1; margin-top: 4px; }
+body[data-mode="normal"] .transfer-form { order: 2; }
+body[data-mode="normal"] .call-actions,
+body[data-mode="normal"] .call-controls { order: 3; margin-top: 0; }
+body[data-mode="normal"] .call-panel:has(.call-dtmf:not([hidden])) .call-head,
+body[data-mode="normal"] .call-panel:has(.transfer-form:not([hidden])) .call-head { margin: 0; }
+body[data-mode="normal"] .call-panel:has(.call-dtmf:not([hidden])) .call-controls,
+body[data-mode="normal"] .call-panel:has(.transfer-form:not([hidden])) .call-controls { margin-top: auto; }
+/* Mudo, Espera, Teclado e Transferir em grade de 4; Encerrar ocupa a largura toda, na base, como ação final. */
+body[data-mode="normal"] .call-controls { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+body[data-mode="normal"] .ctl { height: 64px; font-size: 12px; }
+body[data-mode="normal"] .ctl-end { grid-column: 1 / -1; flex-direction: row; height: 46px; font-size: 14px; font-weight: 600; }
+body[data-mode="normal"] .call-actions { gap: 8px; }
+body[data-mode="normal"] .call-actions .btn { height: 48px; font-size: 14px; }
+/* Janela baixa (mínimo 560 px): identificação em uma linha, para que o teclado DTMF aberto e os controles caibam sem rolagem. */
+@media (max-height: 600px) {
+  body[data-mode="normal"] .call-panel { gap: 12px; }
+  body[data-mode="normal"] .call-head { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  body[data-mode="normal"] .call-party { min-width: 0; flex: 1; }
+  body[data-mode="normal"] .call-name { font-size: 18px; }
+  body[data-mode="normal"] .call-timer { min-height: 0; font-size: 22px; }
+  body[data-mode="normal"] .call-controls { gap: 6px; }
+}
+
+/* Botões e campos */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.btn:disabled { opacity: 0.45; }
+.btn-primary { background: var(--brand-teal-dark); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--brand-teal-darker); }
+.btn-call { width: 100%; height: 46px; font-size: 14px; background: var(--brand-teal-dark); color: #fff; }
+.btn-call:hover:not(:disabled) { background: var(--brand-teal-darker); }
+/* Desabilitado sai do teal: cinza claro com texto cinza escuro (≈ 6:1), para ler sem parecer ativo. */
+.btn-call:disabled { background: var(--border); border-color: var(--border); color: var(--ink-secondary); opacity: 1; }
+.btn-answer { height: 44px; background: var(--brand-teal-dark); color: #fff; }
+.btn-answer:hover:not(:disabled) { background: var(--brand-teal-darker); }
+.btn-reject,
+.btn-danger { height: 44px; background: var(--red); color: #fff; }
+.btn-reject:hover:not(:disabled),
+.btn-danger:hover:not(:disabled) { background: var(--red-dark); }
+.btn-quiet { background: var(--surface); border-color: var(--border); color: var(--ink-secondary); }
+.btn-quiet:hover:not(:disabled) { background: var(--surface-muted); }
+.btn-outline { background: var(--surface); border-color: var(--brand-teal); color: var(--brand-teal-dark); }
+.btn-outline:hover:not(:disabled) { background: var(--brand-teal-bg); }
+/* Ação de texto, sem caixa: para ações secundárias sem peso de botão. */
+.btn-link { height: 28px; padding: 0 4px; color: var(--ink-muted); font-weight: 600; }
+.btn-link:hover:not(:disabled) { color: var(--red-ink); text-decoration: underline; }
+.link-btn {
+  flex: none;
+  height: 24px;
+  padding: 0 2px;
+  color: var(--brand-teal-dark);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+select,
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+select:focus-visible,
+input:focus-visible { border-color: var(--brand-teal); }
+
+/* Áreas roláveis */
+.notice {
+  flex: none;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.notice[data-tone="error"] { background: var(--red-bg); color: var(--red-ink); }
+.notice[data-tone="info"] { background: var(--brand-teal-bg); color: var(--brand-teal-dark); }
+
+.views { flex: 1; min-height: 0; overflow: auto; padding: 14px 16px; }
+.view { display: none; }
+.view.is-active { display: block; }
+.view-title { margin-bottom: 8px; font-size: 15px; font-weight: 600; }
+.section-title {
+  margin: 12px 0 6px;
+  color: var(--ink-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.label-text,
+.field > span {
+  color: var(--ink-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Discador */
+/* Linha de ligação: status resumido, sem seletor (o seletor fica em Configurações). */
+.dial-line { min-height: 18px; margin-bottom: 14px; color: var(--ink-secondary); font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-select { display: flex; flex-direction: column; gap: 4px; width: 100%; margin-bottom: 14px; }
+.dial-form { display: flex; flex-direction: column; gap: 12px; }
+.dial-input {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.dial-input:focus-within { border-bottom-color: var(--brand-teal); }
+.dial-input input::placeholder { font-size: 14px; color: var(--ink-muted); }
+.dial-input input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.dial-input input:focus-visible { border: 0; outline: none; }
+/* Teclado em grade plana: teclas sem caixa, sem raio e sem borda externa; só divisões finas de 1 px entre elas. */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(44px, 80px);
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto;
+}
+.key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  line-height: 1;
+  position: relative;
+}
+.key:nth-child(3n) { border-right: 0; }
+.key:nth-last-child(-n + 3) { border-bottom: 0; }
+@media (hover: hover) {
+  .key:hover { background: var(--surface-muted); }
+}
+.key:active { background: var(--border); }
+.key-digit { font-size: 20px; font-weight: 500; }
+/* Letras ficam fora do fluxo, na base da tecla: o dígito fica centralizado em todas as teclas (com ou sem letras). */
+.key-letters {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  color: var(--ink-muted);
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+/* Teclado DTMF (chamada) é o mesmo componente do discador: mesma altura, raio, dígito, peso e geometria.
+   Só muda a superfície (grafite, para contraste na faixa). As letras ficam ocultas, sem tirar o espaço. */
+.keypad-small { grid-auto-rows: 48px; }
+.keypad-small .key-letters { visibility: hidden; }
+.dial-hint-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; }
+.dial-hint { min-height: 18px; color: var(--ink-muted); font-size: 12px; }
+
+/* Discador em modo normal ocupa a altura da janela: o teclado absorve a folga e "Ligar" e a dica ficam na base.
+   Assim não sobra área morta abaixo do botão (antes ~180 px em 380×680). Compacto não usa esta regra. */
+body[data-mode="normal"] .view.is-active[data-view="dial"] { display: flex; flex-direction: column; height: 100%; }
+body[data-mode="normal"] .view[data-view="dial"] .dial-form { flex: 1 1 auto; min-height: 0; }
+body[data-mode="normal"] .view[data-view="dial"] .dial-form .keypad { flex: 1 1 auto; align-content: center; min-height: 0; }
+
+/* Chamada ativa ou recebida: o discador sai da frente do painel de chamada. */
+body:not([data-call="none"]) .view[data-view="dial"] .dial-input,
+body:not([data-call="none"]) .view[data-view="dial"] .keypad,
+body:not([data-call="none"]) .view[data-view="dial"] .btn-call { display: none; }
+
+/* Estados vazios: sem dados inventados */
+.empty {
+  padding: 18px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-alt);
+}
+.empty-title { margin-bottom: 4px; color: var(--ink-secondary); font-weight: 600; }
+.empty-text { color: var(--ink-muted); font-size: 12px; line-height: 1.5; }
+/* Recentes e Contatos vazios: texto alinhado à esquerda, sem caixa, como uma lista vazia de desktop. */
+.view[data-view="recent"] .empty,
+.view[data-view="contacts"] .empty { padding: 4px 0; border: 0; background: none; }
+
+/* Configurações: lista e formulário */
+.account-list {
+  list-style: none;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+/* Card de conta: informação em largura total, ações embaixo (texto nunca espremido ao lado dos botões). */
+.account-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.account-item:last-child { border-bottom: 0; }
+.account-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.account-name { font-weight: 600; }
+.account-addr,
+.account-detail {
+  color: var(--ink-muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.account-status { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+.account-state { color: var(--ink-secondary); font-size: 12px; font-weight: 600; }
+.account-tag { color: var(--ink-muted); font-size: 12px; }
+.account-state[data-tone="ok"] { color: var(--green-ink); }
+.account-state[data-tone="pending"] { color: var(--amber-ink); }
+.account-state[data-tone="bad"] { color: var(--red-ink); }
+.account-actions { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: 6px; }
+.account-actions .btn { height: 28px; padding: 0 8px; font-size: 12px; }
+
+.account-form { display: flex; flex-direction: column; gap: 8px; }
+/* Texto de "nenhuma conta" sem caixa: ocupa menos a primeira dobra de Configurações. */
+#account-list-empty { padding: 0; border: 0; background: none; }
+#account-list-empty .empty-text { font-size: 12px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; margin: 0; padding: 0; border: 0; }
+/* Marca de opcional: sempre em linha própria, abaixo do rótulo, em todos os campos. */
+.field em { display: block; color: var(--ink-muted); font-style: normal; font-weight: 400; }
+/* Faixa de QA: visível só com ?fixture=, para que nenhuma captura de dado sintético pareça produto. */
+.qa-banner {
+  display: none;
+  flex: none;
+  padding: 3px 14px;
+  background: #fef3c7;
+  color: var(--amber-ink);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+body[data-qa="true"] .qa-banner { display: block; }
+/* Rótulos de linha dupla: a altura de duas linhas é reservada, e os campos ficam alinhados na mesma linha. */
+/* Rótulos de linha dupla: a altura de duas linhas é reservada e o texto começa no topo, então os campos ficam alinhados. */
+.field-row .field > span { display: block; min-height: 34px; }
+.field-row .field em { display: inline; margin-left: 4px; }
+.field-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.field-row-domain { grid-template-columns: minmax(0, 1fr) 96px; }
+.transport { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+.transport > span { flex-basis: 100%; margin-bottom: 2px; }
+.transport label { position: relative; flex: 1 1 0; min-width: 0; }
+.transport input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.transport label > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--ink-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.transport input:checked + span { border-color: var(--brand-teal); background: var(--brand-teal-bg); color: var(--brand-teal-dark); }
+.transport input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 1px; }
+.password-row { display: flex; gap: 6px; }
+.password-row input { flex: 1; }
+.password-row .btn { height: 34px; }
+.field-hint { color: var(--ink-muted); font-size: 11px; line-height: 1.4; }
+/* Barra de ações da conta: fixa no pé da área de Configurações e no fim do conteúdo (após Áudio). */
+.form-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 0 -16px -14px;
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.audio { display: flex; flex-direction: column; gap: 10px; }
+
+/* Marca nas Configurações: prévia sobre o mesmo fundo escuro do cabeçalho. */
+.brand-settings { display: flex; flex-direction: column; gap: 8px; }
+.brand-preview {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  background: var(--call-bg);
+}
+.brand-preview-official { width: 160px; height: 29px; }
+.brand-preview-img {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: 40px;
+  object-fit: contain;
+  object-position: left center;
+}
+.brand-status { color: var(--ink-secondary); font-size: 12px; }
+.brand-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Navegação por abas superiores (modo normal), abaixo da marca: padrão de softphone desktop.
+   Abas só com texto, 36 px de altura; o indicador ativo é uma linha inferior teal. */
+.tabs {
+  flex: none;
+  display: flex;
+  gap: 2px;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 1 0 auto;
+  height: 36px;
+  padding: 0 8px;
+  border-bottom: 2px solid transparent;
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-current="page"] { border-bottom-color: var(--brand-teal); color: var(--brand-teal-dark); }
+
+/* Modo compacto: faixa com conta, chamada e controles indispensáveis */
+body[data-mode="compact"] .tabs,
+body[data-mode="compact"] .dial-line,
+body[data-mode="compact"] .keypad,
+body[data-mode="compact"] .keypad-toggle,
+body[data-mode="compact"] .transfer-toggle,
+body[data-mode="compact"] .call-dtmf,
+body[data-mode="compact"] .transfer-form { display: none; }
+body[data-mode="compact"] .titlebar { height: 50px; }
+body[data-mode="compact"] .brand-wordmark { width: 260px; height: 45px; }
+body[data-mode="compact"] .call-uri { font-size: 11px; }
+body[data-mode="compact"] .view { display: none; }
+body[data-mode="compact"] .view[data-view="dial"] { display: block; }
+body[data-mode="compact"][data-call="incoming"] .view,
+body[data-mode="compact"][data-call="active"] .view { display: none; }
+/* Compacto: 184 px de janela com faixa de QA (18 px) e barra (34 px) deixam ~125 px para o discador, sem rolagem. */
+body[data-mode="compact"] .views { padding: 6px 12px; }
+/* Faixa de QA no compacto: uma linha, para não empurrar os controles de chamada para fora da janela de 160 px. */
+body[data-mode="compact"] .qa-banner { padding: 2px 8px; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+body[data-mode="compact"] .dial-form { gap: 6px; }
+body[data-mode="compact"] .dial-input input { height: 34px; font-size: 18px; }
+body[data-mode="compact"] .dial-hint-row { min-height: 20px; }
+body[data-mode="compact"] .btn-call { height: 36px; }
+/* Painel de chamada compacto: 160 px de janela mínima precisam mostrar os controles inteiros. */
+body[data-mode="compact"] .call-panel { gap: 6px; padding: 8px 12px; }
+body[data-mode="compact"] .call-name { font-size: 14px; }
+body[data-mode="compact"] .call-timer { font-size: 16px; }
+body[data-mode="compact"] .call-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+body[data-mode="compact"] .ctl { flex-direction: row; height: 36px; }
+/* Compacto: Mudo mostra rótulo e estado em duas linhas ao lado do ícone (cabe em 36 px). */
+body[data-mode="compact"] .ctl-text { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+body[data-mode="compact"] .ctl-state { font-size: 9px; }
+body[data-mode="compact"] .btn-answer,
+body[data-mode="compact"] .btn-reject { height: 36px; }
+
+/* Movimento: microinterações curtas (120–180 ms) que explicam uma ação ou um estado real.
+   Nada anima em repouso, exceto o pulso discreto de chamada tocando. prefers-reduced-motion remove tudo (fim do arquivo). */
+:root {
+  --dur-fast: 120ms;
+  --dur: 160ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+/* Hover, foco e pressionamento trocam cor e escala em 120 ms. Só as propriedades listadas transitam. */
+.btn,
+.ctl,
+.key,
+.tab,
+.icon-btn,
+.link-btn,
+.transport label > span,
+.dial-input {
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--dur-fast);
+  transition-timing-function: var(--ease-out);
+}
+/* Pressionamento sem escala: botões, ícones e teclas mudam só de cor e borda. */
+.btn-primary:active:not(:disabled),
+.btn-call:active:not(:disabled),
+.btn-answer:active:not(:disabled) { background: var(--brand-teal-darker); }
+.btn-reject:active:not(:disabled),
+.btn-danger:active:not(:disabled),
+.ctl-end:active:not(:disabled) { background: var(--red-dark); border-color: var(--red-dark); }
+.btn-quiet:active:not(:disabled),
+.icon-btn:active { background: var(--border); }
+.ctl:active:not(:disabled) { border-color: var(--call-muted); }
+
+/* Troca de vista: a tela nova entra com fade curto e leve deslocamento. */
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+.view.is-active { animation: view-in var(--dur) var(--ease-out); }
+
+/* Entrada do painel de chamada e troca de ações (atender/recusar ↔ mudo/espera/encerrar).
+   A animação só roda quando o elemento aparece (o atributo hidden muda), não a cada atualização do estado. */
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.call-panel:not([hidden]) {
+  animation: panel-in var(--dur) var(--ease-out);
+  box-shadow: inset 0 -1px 0 rgba(148, 163, 184, 0.14);
+}
+.call-actions:not([hidden]),
+.call-controls:not([hidden]),
+.call-dtmf:not([hidden]),
+.transfer-form:not([hidden]) { animation: view-in var(--dur) var(--ease-out); }
+
+/* Chamada tocando: pulso discreto de um ponto ao lado de "Tocando". Só existe com data-call="incoming". */
+@keyframes ring-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+body[data-call="incoming"] #call-state::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: var(--focus);
+  animation: ring-pulse 1.4s ease-in-out infinite;
+}
+
+/* Preferência do sistema: sem animação nem transição. Estados continuam mudando, só sem movimento. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

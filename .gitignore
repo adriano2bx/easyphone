@@ -1,0 +1,7 @@
+dist/
+node_modules/
+native-wx/build/
+native-wx/build-*/
+qa/
+*.log
+.DS_Store

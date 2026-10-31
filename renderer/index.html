@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; script-src 'self'">
+  <title>Easyphone</title>
+  <link rel="stylesheet" href="../ui/styles.css">
+</head>
+<body data-mode="normal" data-view="dial" data-call="none">
+  <div class="app">
+    <p class="qa-banner" role="note">Modo de QA · dados sintéticos · nenhuma ação chega ao motor</p>
+    <header class="titlebar">
+      <div class="brand">
+        <span class="brand-wordmark" id="brand-wordmark" role="img" aria-label="Easyphone"></span>
+        <img class="brand-custom" id="brand-custom" alt="Logo personalizado" hidden>
+      </div>
+      <button class="icon-btn" id="mode-toggle" type="button" aria-label="Usar modo compacto" title="Usar modo compacto">
+        <svg class="icon" id="icon-to-compact" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg>
+        <svg class="icon" id="icon-to-normal" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </button>
+    </header>
+
+    <nav class="tabs" aria-label="Navegação principal">
+      <button class="tab" type="button" data-go="dial" aria-current="page">Discador</button>
+      <button class="tab" type="button" data-go="recent">Recentes</button>
+      <button class="tab" type="button" data-go="contacts">Contatos</button>
+      <button class="tab" type="button" data-go="settings">Configurações</button>
+    </nav>
+
+    <section class="call-panel" id="call-panel" aria-label="Chamada atual" hidden>
+      <div class="call-head">
+        <div class="call-party">
+          <p class="call-name" id="call-name"></p>
+          <p class="call-uri" id="call-uri" hidden></p>
+          <p class="call-meta"><span id="call-direction"></span><span aria-hidden="true"> · </span><span id="call-state"></span></p>
+        </div>
+        <p class="call-timer" id="call-timer"></p>
+      </div>
+
+      <div class="call-actions" id="incoming-actions" hidden>
+        <button class="btn btn-answer" id="answer-btn" type="button">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Atender</span>
+        </button>
+        <button class="btn btn-reject" id="reject-btn" type="button">
+          <span>Recusar</span>
+        </button>
+      </div>
+
+      <div class="call-controls" id="call-controls" hidden>
+        <button class="ctl" id="mute-btn" type="button" aria-pressed="false">
+          <svg class="icon icon-mic" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg>
+          <svg class="icon icon-mic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 1l22 22"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V5a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23M12 19v3"/></svg>
+          <span class="ctl-text">
+            <span class="ctl-label">Mudo</span>
+            <span class="ctl-state" aria-hidden="true">inativo</span>
+          </span>
+        </button>
+        <button class="ctl" id="hold-btn" type="button" aria-pressed="false">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          <span>Espera</span>
+        </button>
+        <button class="ctl keypad-toggle" id="keypad-toggle" type="button" aria-expanded="false" aria-controls="call-dtmf">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h.01M12 9h.01M15 9h.01M9 12h.01M12 12h.01M15 12h.01M9 15h.01M12 15h.01M15 15h.01"/></svg>
+          <span>Teclado</span>
+        </button>
+        <button class="ctl transfer-toggle" id="transfer-toggle" type="button" aria-expanded="false" aria-controls="transfer-form">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg>
+          <span>Transferir</span>
+        </button>
+        <button class="ctl ctl-end" id="hangup-btn" type="button">
+          <svg class="icon icon-hangup" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Encerrar</span>
+        </button>
+      </div>
+
+      <div class="call-dtmf" id="call-dtmf" hidden>
+        <div class="keypad keypad-small" id="dtmf-keypad"></div>
+      </div>
+
+      <form class="transfer-form" id="transfer-form" autocomplete="off" hidden>
+        <label class="sr-only" for="transfer-input">Destino da transferência</label>
+        <input id="transfer-input" type="text" inputmode="tel" spellcheck="false" placeholder="Número ou endereço SIP" required>
+        <button class="btn btn-primary" type="submit">Transferir</button>
+        <button class="btn btn-quiet" type="button" id="transfer-cancel">Cancelar</button>
+      </form>
+    </section>
+
+    <p class="notice" id="notice" role="alert" data-tone="error" hidden></p>
+
+    <main class="views">
+      <section class="view" data-view="dial" aria-label="Discador">
+        <p class="dial-line" id="dial-line" aria-live="polite"></p>
+
+        <form class="dial-form" id="dial-form" autocomplete="off">
+          <div class="dial-input">
+            <input id="dial-input" type="text" inputmode="tel" autocomplete="off" spellcheck="false" placeholder="Número ou endereço SIP" aria-label="Número ou endereço SIP">
+            <button class="icon-btn" id="backspace-btn" type="button" aria-label="Apagar último caractere">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM18 9l-6 6M12 9l6 6"/></svg>
+            </button>
+          </div>
+          <div class="keypad" id="dial-keypad"></div>
+          <div class="dial-hint-row">
+            <p class="dial-hint" id="dial-hint" aria-live="polite"></p>
+          </div>
+          <button class="btn btn-call" id="call-btn" type="submit" disabled>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Ligar</span>
+          </button>
+        </form>
+      </section>
+
+      <section class="view" data-view="recent" aria-label="Recentes">
+        <h2 class="view-title">Recentes</h2>
+        <div class="empty">
+          <p class="empty-title">Nenhuma chamada registrada</p>
+          <p class="empty-text">O histórico aparece aqui quando o motor de telefonia estiver conectado e houver chamadas realizadas ou recebidas.</p>
+        </div>
+      </section>
+
+      <section class="view" data-view="contacts" aria-label="Contatos">
+        <h2 class="view-title">Contatos</h2>
+        <div class="empty">
+          <p class="empty-title">Nenhum contato disponível</p>
+          <p class="empty-text">Os contatos aparecerão aqui quando houver uma fonte conectada.</p>
+        </div>
+      </section>
+
+      <section class="view" data-view="settings" aria-label="Configurações">
+        <h2 class="view-title">Conta SIP</h2>
+        <label class="account-select" id="account-select-wrap" hidden>
+          <span class="label-text">Conta de ligação</span>
+          <select id="account-select"></select>
+        </label>
+        <p class="empty" id="account-list-empty">
+          <span class="empty-text">Nenhuma conta cadastrada.</span>
+        </p>
+        <ul class="account-list" id="account-list" hidden></ul>
+
+        <h3 class="section-title">Nova conta</h3>
+        <form class="account-form" id="account-form" autocomplete="off">
+          <label class="field">
+            <span>Nome da conta</span>
+            <input name="label" type="text" required maxlength="60" placeholder="Ex.: Recepção">
+          </label>
+          <div class="field-row">
+            <label class="field">
+              <span>Usuário SIP</span>
+              <input name="username" type="text" required spellcheck="false">
+            </label>
+            <label class="field">
+              <span>Usuário de autenticação <em>opcional</em></span>
+              <input name="authUsername" type="text" spellcheck="false">
+            </label>
+          </div>
+          <div class="field-row field-row-domain">
+            <label class="field">
+              <span>Domínio ou registrar</span>
+              <input name="domain" type="text" required spellcheck="false">
+            </label>
+            <label class="field">
+              <span>Porta</span>
+              <input name="port" type="number" min="1" max="65535" inputmode="numeric" placeholder="5060">
+            </label>
+          </div>
+          <label class="field">
+            <span>Proxy de saída <em>opcional</em></span>
+            <input name="outboundProxy" type="text" spellcheck="false" placeholder="host ou host:porta">
+          </label>
+          <div class="field transport" role="radiogroup" aria-labelledby="transport-label">
+            <span id="transport-label">Transporte</span>
+            <label><input type="radio" name="transport" value="udp" checked><span>UDP</span></label>
+            <label><input type="radio" name="transport" value="tcp"><span>TCP</span></label>
+            <label><input type="radio" name="transport" value="tls"><span>TLS</span></label>
+          </div>
+          <label class="field">
+            <span>Senha</span>
+            <span class="password-row">
+              <input name="password" type="password" required autocomplete="new-password">
+              <button class="btn btn-quiet" type="button" id="password-toggle" aria-pressed="false">Mostrar</button>
+            </span>
+          </label>
+          <p class="field-hint">A senha não é exibida de volta depois de enviada. O estado do registro aparece na lista de contas.</p>
+        </form>
+
+        <h3 class="section-title">Marca</h3>
+        <div class="brand-settings">
+          <div class="brand-preview">
+            <span class="brand-wordmark brand-preview-official" id="brand-preview-official" role="img" aria-label="Logo Easyphone"></span>
+            <img class="brand-preview-img" id="brand-preview-img" alt="Prévia do logo personalizado" hidden>
+          </div>
+          <p class="brand-status" id="brand-status" aria-live="polite">Usando o logo Easyphone.</p>
+          <div class="brand-actions" id="brand-actions">
+            <button class="btn btn-outline" type="button" id="brand-change">Alterar logo</button>
+            <button class="btn btn-quiet" type="button" id="brand-reset" disabled>Restaurar logo Easyphone</button>
+          </div>
+          <p class="field-hint">PNG, JPEG ou WebP, até 1 MiB. O logo fica guardado neste dispositivo: não é enviado à rede nem sincronizado com outras instalações.</p>
+          <p class="field-hint" id="brand-unavailable" hidden>Personalização de marca disponível apenas no aplicativo instalado.</p>
+        </div>
+
+        <h3 class="section-title">Áudio</h3>
+        <div class="audio">
+          <label class="field">
+            <span>Entrada (microfone)</span>
+            <select id="audio-input"></select>
+          </label>
+          <label class="field">
+            <span>Saída (alto-falante)</span>
+            <select id="audio-output"></select>
+          </label>
+        </div>
+        <p class="field-hint" id="audio-hint">Os dispositivos aparecem quando o motor os informa.</p>
+
+        <!-- Barra de ações da conta: fica fixa no fim da área e pertence ao formulário acima (atributo form). -->
+        <div class="form-actions">
+          <button class="btn btn-quiet" type="reset" form="account-form">Limpar</button>
+          <button class="btn btn-primary" type="submit" id="account-save" form="account-form">Salvar conta</button>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <script src="../ui/qa-fixtures.js"></script>
+  <script src="../ui/bridge-offline.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
