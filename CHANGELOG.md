@@ -7,5 +7,6 @@
 - Instalador portátil registra o aplicativo no menu e cria atalho na área de trabalho quando disponível.
 - Bandeja do sistema mantém o softphone ativo quando a janela é minimizada ou fechada.
 - Desinstalador portátil remove os arquivos do aplicativo e preserva as contas e preferências do usuário.
+- README inclui capturas reais das telas, modos compacto/normal e chamadas, com dados fictícios de demonstração.
 
 Este lançamento cobre somente Linux x86_64. Consulte a matriz de plataformas para limitações e próximos alvos.

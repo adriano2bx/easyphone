@@ -2,9 +2,33 @@
 
 O easyphone é um softphone SIP para desktop, desenvolvido pela equipe 2BX. Reunimos discagem, chamadas, contatos, histórico e controles de áudio em uma interface nativa, com suporte a contas SIP convencionais.
 
-![Captura real do easyphone em execução no Linux, com discador e histórico recente](docs/screenshots/easyphone-linux-discador.png)
+## Interfaces do produto
 
-Captura da versão Linux atual. O perfil de demonstração está sem uma conta SIP cadastrada.
+Capturas da interface nativa em execução no Linux. Todos os nomes, ramais, contas e dispositivos abaixo são dados fictícios de demonstração.
+
+| Discador | Contatos |
+|---|---|
+| ![Discador com número de demonstração](docs/screenshots/easyphone-linux-discador.png) | ![Lista de contatos de demonstração](docs/screenshots/easyphone-linux-contatos.png) |
+
+| Recentes | Chamada recebida |
+|---|---|
+| ![Histórico de chamadas de demonstração](docs/screenshots/easyphone-linux-recentes.png) | ![Chamada recebida de Marina Costa](docs/screenshots/easyphone-linux-chamada-recebida.png) |
+
+| Chamada ativa | Chamada em espera |
+|---|---|
+| ![Controles de chamada ativa](docs/screenshots/easyphone-linux-chamada-ativa.png) | ![Chamada em espera com áudio silenciado](docs/screenshots/easyphone-linux-chamada-em-espera.png) |
+
+| Discador compacto | Chamada ativa compacta |
+|---|---|
+| ![Discador no modo compacto](docs/screenshots/easyphone-linux-compacto-discador.png) | ![Chamada ativa no modo compacto](docs/screenshots/easyphone-linux-compacto-chamada-ativa.png) |
+
+| Chamada recebida compacta | Contas SIP |
+|---|---|
+| ![Chamada recebida no modo compacto](docs/screenshots/easyphone-linux-compacto-chamada-recebida.png) | ![Configurações com contas SIP fictícias](docs/screenshots/easyphone-linux-configuracoes-contas.png) |
+
+| Dispositivos de áudio |
+|---|
+| ![Configurações de áudio com dispositivos de demonstração](docs/screenshots/easyphone-linux-configuracoes-audio.png) |
 
 ## Download
 
