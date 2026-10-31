@@ -2,6 +2,6 @@
   "name": "easyphone-demo",
   "version": "0.1.0",
   "private": true,
-  "description": "Janela demo do renderer do Easyphone. Não é o processo principal de produção.",
+  "description": "Janela demo do renderer do easyphone. Não é o processo principal de produção.",
   "main": "main.cjs"
 }

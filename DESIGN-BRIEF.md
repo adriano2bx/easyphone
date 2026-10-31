@@ -1,12 +1,12 @@
-# Brief visual — Easyphone
+# Brief visual — easyphone
 
 ## Referência de produto
 
-Um telefone SIP de desktop compacto e confiável, semelhante em densidade e uso ao Zoiper, com identidade Easyphone. É um softphone para discagem e chamadas; não é a tela de atendimento de call center e não inclui ficha de paciente, contexto de IA ou transcrição.
+Um telefone SIP de desktop compacto e confiável, semelhante em densidade e uso ao Zoiper, com identidade easyphone. É um softphone para discagem e chamadas; não é a tela de atendimento de call center e não inclui ficha de paciente, contexto de IA ou transcrição.
 
 ## Direção visual aprovada
 
-- Usar o logo Easyphone e a linguagem sóbria já aprovada como referência de contraste e acabamento.
+- Usar o logo easyphone e a linguagem sóbria já aprovada como referência de contraste e acabamento.
 - Superfícies claras, grafite discreto para a área de chamada, teal apenas como acento funcional, tipografia de sistema legível e divisores finos.
 - Aparência de software comercial consolidado: alinhamento preciso, estados explícitos, botões com hierarquia, espaços consistentes e densidade adequada à janela pequena.
 - Sem visual genérico de IA: não usar gradientes decorativos, glassmorphism, neon, sombras grandes, cartões arredondados em excesso, pílulas para cada estado, emojis, textos promocionais, imagens geradas ou formas abstratas.
@@ -38,7 +38,7 @@ Um telefone SIP de desktop compacto e confiável, semelhante em densidade e uso 
 
 ## Critérios de revisão visual
 
-- Deve parecer um cliente VoIP comercial nativo e consistente com Easyphone em janela pequena.
+- Deve parecer um cliente VoIP comercial nativo e consistente com easyphone em janela pequena.
 - Discagem é óbvia sem manual; estado de registro e estados da chamada são distintos e compreensíveis.
 - Modo compacto é realmente mais baixo e continua útil durante uma chamada.
 - Layout permanece funcional na menor dimensão suportada e com escala de tela ampliada.
@@ -46,9 +46,9 @@ Um telefone SIP de desktop compacto e confiável, semelhante em densidade e uso 
 
 ## Marca personalizada
 
-- Seção **Marca** em Configurações, entre a conta SIP e o Áudio: prévia (logo Easyphone ou logo do cliente), estado ("Usando o logo Easyphone" / "Logo personalizado guardado neste dispositivo"), ações **Alterar logo** e **Restaurar logo Easyphone** (desabilitada enquanto o logo Easyphone estiver ativo).
+- Seção **Marca** em Configurações, entre a conta SIP e o Áudio: prévia (logo easyphone ou logo do cliente), estado ("Usando o logo easyphone" / "Logo personalizado guardado neste dispositivo"), ações **Alterar logo** e **Restaurar logo easyphone** (desabilitada enquanto o logo easyphone estiver ativo).
 - Texto de apoio fixo: PNG, JPEG ou WebP, até 1 MiB, guardado neste dispositivo, sem sincronização com outras instalações.
-- No cabeçalho, o logo do cliente ocupa a mesma caixa do logo Easyphone (110×20 px; 92×17 px no compacto) com `object-fit: contain`; o logo Easyphone continua como fallback.
+- No cabeçalho, o logo do cliente ocupa a mesma caixa do logo easyphone (110×20 px; 92×17 px no compacto) com `object-fit: contain`; o logo easyphone continua como fallback.
 - Sem ponte de marca (demo/harness), as ações não aparecem e o texto informa que a personalização é do aplicativo instalado.
 
 ## Separação entre Discador e Configurações

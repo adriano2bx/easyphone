@@ -1,8 +1,8 @@
 # Notas de versão
 
-## 0.4.0 — Easyphone para Linux x86_64
+## 0.4.0 — easyphone para Linux x86_64
 
-- Primeira distribuição pública sob a marca Easyphone.
+- Primeira distribuição pública sob a marca easyphone.
 - Pacotes Linux portátil e Debian com ícones e lançador do menu.
 - Instalador portátil registra o aplicativo no menu e cria atalho na área de trabalho quando disponível.
 - Bandeja do sistema mantém o softphone ativo quando a janela é minimizada ou fechada.

@@ -1,4 +1,4 @@
-# Motor de telefonia — Easyphone
+# Motor de telefonia — easyphone
 
 Supervisor do Baresip atrás da API estreita `PhoneBridge` (`contracts/phone-bridge.d.ts`).
 Somente SIP convencional por UDP, TCP e TLS. WebSocket e WSS não entram em nenhuma parte deste código. O toque de entrada é um WAV próprio configurado como `ring_aufile` no Baresip.
@@ -6,7 +6,7 @@ Somente SIP convencional por UDP, TCP e TLS. WebSocket e WSS não entram em nenh
 ## Estado de execução
 
 - **Build Linux local:** Baresip 4.12.0 e libre foram compilados no prefixo isolado `/home/adriano/.cache/easyphone-build/prefix`, sem instalar pacotes do sistema. O pacote ainda não está incorporado em `packaging/baresip`.
-- **Validação de chamadas reais:** o usuário confirmou chamadas reais pelo Easyphone. Não foram registrados aqui os sistemas operacionais, periféricos, codecs ou casos funcionais cobertos; não inferir paridade com Windows/macOS a partir dessa confirmação.
+- **Validação de chamadas reais:** o usuário confirmou chamadas reais pelo easyphone. Não foram registrados aqui os sistemas operacionais, periféricos, codecs ou casos funcionais cobertos; não inferir paridade com Windows/macOS a partir dessa confirmação.
 - **Registro SIP observado:** em 31/10/2026, o `PhoneEngine` registrou o ramal PJSIP UDP 1003 do FreePBX; a VPS mostrou o contato `Avail` e a fila 6000 mostrou o membro `Not in use`. Essa observação é independente da validação de chamadas confirmada pelo usuário.
 - Para esse teste, um wrapper temporário definiu `LD_LIBRARY_PATH`, necessário porque o build isolado usa bibliotecas compartilhadas. O pacote Electron ainda precisa carregar essas bibliotecas de forma reproduzível.
 - A imagem Linux inclui o módulo PulseAudio, configurado para o servidor PulseAudio de PipeWire; a disponibilidade do dispositivo foi confirmada. A evidência detalhada de dispositivos e cenários de áudio não está registrada neste documento.

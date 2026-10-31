@@ -1,56 +1,65 @@
-# Easyphone
+# easyphone
 
-Softphone SIP de desktop, independente do console de atendimento.
+O easyphone é um softphone SIP para desktop, desenvolvido pela equipe 2BX. Reunimos discagem, chamadas, contatos, histórico e controles de áudio em uma interface nativa, com suporte a contas SIP convencionais.
 
-## Baixar e instalar no Linux
+## Download
 
-Os instaladores publicados ficam em [Releases](https://github.com/adriano2bx/easyphone/releases). No Linux x86_64, baixe o `.deb` e instale com `sudo apt install ./easyphone_VERSION_amd64.deb`, ou baixe o `.tar.gz`, extraia e execute `./easyphone/INSTALL-LOCAL.sh`. A instalação portátil não precisa de root.
+Baixe a versão mais recente na página de [Releases](https://github.com/adriano2bx/easyphone/releases). A versão atual oferece pacotes para **Linux x86_64**.
 
-O instalador cria a entrada **Easyphone** no menu de aplicativos e um atalho na área de trabalho, quando ela existe. Para adicionar ao painel do KDE, abra o aplicativo, clique com o botão direito no ícone do Easyphone no Gerenciador de Tarefas e escolha **Fixar no Gerenciador de Tarefas**. O KDE não oferece uma forma portátil e confiável de fixar automaticamente um aplicativo no painel.
+### Debian e derivados
 
-O ícone da bandeja fica disponível enquanto o processo está ativo. Minimizar ou fechar a janela oculta o aplicativo; clique no ícone para reabrir. Use **Sair do Easyphone** no menu da bandeja para encerrar também o registro SIP. A disponibilidade da bandeja depende do ambiente de desktop e do suporte a ícones de status.
+```sh
+sudo apt install ./easyphone_0.4.0_amd64.deb
+```
 
-Para remover a instalação portátil, execute `~/.local/opt/easyphone/UNINSTALL-LOCAL.sh`. Contas e preferências em `~/.config/Easyphone` são preservadas. O pacote `.deb` pode ser removido com `sudo apt remove easyphone`.
+### Instalação portátil
 
-Atualmente os artefatos publicados são para Linux x86_64. Windows e macOS precisam de builds próprios e ainda não estão prontos para distribuição.
+```sh
+tar -xzf easyphone-linux-x86_64-v0.4.0.tar.gz
+./easyphone/INSTALL-LOCAL.sh
+```
 
-## Interface nativa wxWidgets
+A instalação portátil não exige privilégios de administrador. Ela cria a entrada do easyphone no menu de aplicativos e um atalho na área de trabalho.
 
-A interface operacional atual está em [`native-wx/`](native-wx/README.md). wxWidgets controla a tela; Electron mantém o cofre e o ciclo de vida; Baresip executa SIP convencional por uma ponte local.
+## Uso no desktop
 
-## Requisitos de produto
+Adicione sua conta SIP em **Configurações**. O easyphone mantém a conta registrada quando a janela é minimizada ou fechada e fica disponível pela bandeja do sistema. No menu da bandeja, é possível reabrir a janela ou sair do aplicativo.
 
-- SIP convencional por UDP/TCP/TLS; **não usar WebSocket para sinalização SIP**.
-- Baresip como motor de telefonia; sinalização SIP convencional, sem WebSocket.
-- Alvos desktop: Linux, Windows e macOS.
-- Identidade visual Easyphone: logo próprio, grafite, branco e verde contido; sem gradientes decorativos, chips redundantes, ondas falsas ou ilustrações genéricas.
-- Janela de softphone compacta e redimensionável, com modos Normal e Compacto. O modo compacto preserva estado da conta e controles indispensáveis durante chamadas.
-- Cadastro de conta SIP; chamadas recebidas e realizadas; keypad DTMF; mute, espera/retomada, transferência, contatos, histórico e seleção de áudio.
-- Senhas protegidas por cofre do sistema. O renderer não recebe acesso direto a Node, arquivos ou socket do Baresip.
+Para fixar o easyphone no painel do KDE, abra o aplicativo, clique com o botão direito no ícone do Gerenciador de Tarefas e escolha **Fixar no Gerenciador de Tarefas**. O KDE controla essa ação por usuário, então o instalador não altera o painel automaticamente.
 
-## Fronteira entre UI e telefonia
+Para remover a instalação portátil, execute `~/.local/opt/easyphone/UNINSTALL-LOCAL.sh`. As contas e preferências são preservadas. Remova a versão Debian com `sudo apt remove easyphone`.
 
-O renderer consome somente `contracts/phone-bridge.d.ts`. A camada principal faz a ponte IPC validada; o motor Baresip fica em `engine/`. O controle do motor deve ser privado ao processo local e nunca escutar interfaces externas.
+## O projeto
 
-## Estado atual
+A interface usa wxWidgets. Electron integra o ciclo de vida do aplicativo e o armazenamento seguro de contas. Baresip cuida da sinalização SIP convencional e do áudio. As senhas ficam protegidas pelo mecanismo seguro do sistema operacional.
 
-- A UI nativa e a integração SIP estão em execução no Linux.
-- O usuário confirmou validação de chamadas reais. Os sistemas, periféricos e cenários cobertos por essa validação não estão detalhados nos registros disponíveis.
-- Windows e macOS ainda não têm builds ou validação registrados; o trabalho de paridade e distribuição está em andamento.
-- O motor documenta suporte a uma chamada por vez e um canal local `ctrl_tcp` sem autenticação. Essas limitações precisam de decisão/correção antes da beta comercial.
+O repositório inclui o código da interface, a integração com o motor SIP, os recursos visuais da marca e os scripts de empacotamento. Os instaladores incluem os avisos de licença dos componentes distribuídos.
 
-## Marca personalizada (logo do cliente)
+## Plataformas
 
-- **Escopo:** em Configurações → Marca, o cliente escolhe um logo próprio (**Alterar logo**) ou restaura o logo Easyphone (**Restaurar logo Easyphone**). O logo aparece no cabeçalho e na prévia; o modo compacto mantém a proporção (`object-fit: contain`).
-- **Formatos e limite:** PNG, JPEG ou WebP, até 1 MiB. A validação acontece no processo principal (`electron/branding.cjs`) pela assinatura real do arquivo, não pela extensão. SVG, GIF e executáveis são recusados, mesmo com extensão `.png`/`.jpg`.
-- **Armazenamento:** arquivo único `custom-logo.png|jpg|webp` dentro de `<userData>/branding/`, com permissão `600` no POSIX. `userData` é `~/.config/Easyphone` no Linux, `%APPDATA%\Easyphone` no Windows e `~/Library/Application Support/Easyphone` no macOS. Escrita atômica (temporário + rename). O reset remove apenas o arquivo de logo.
-- **Local por instalação:** o logo não é enviado à rede, não é sincronizado entre máquinas nem tenants e não passa pelo motor SIP. Sincronização de branding, se for desejada, fica para outra versão.
-- **Fronteira:** o renderer não recebe nem envia caminhos. A ponte `window.phoneBranding` (`getLogo`, `chooseLogo`, `resetLogo`) é só para a janela confiável e o diálogo nativo escolhe o arquivo. Nenhum acesso a `fs` ou Node.
-- **Demo/harness:** sem `window.phoneBranding` (demo `renderer/demo` e `bridge-offline.js`), as ações ficam ocultas com a mensagem "disponível apenas no aplicativo instalado". Não há persistência de blobs no `localStorage`.
-- **Limites conhecidos:** o contraste do logo sobre o fundo branco do cabeçalho é responsabilidade de quem envia o arquivo (a prévia mostra exatamente o resultado). A validação estrutural é de assinatura e tamanho; a decodificação final é checada pelo navegador antes de exibir, e uma imagem ilegível é descartada. Diálogo nativo e comportamento de arquivos variam entre Linux, Windows e macOS; o teste visual nesses sistemas ainda não foi feito.
+| Sistema | Disponibilidade |
+|---|---|
+| Linux x86_64 | Pacotes `.deb` e portátil disponíveis em Releases |
+| Windows | Build e instalador em desenvolvimento |
+| macOS | Build e instalador em desenvolvimento |
 
-Verificação visual e funcional deve ser feita no sistema em que o aplicativo será usado; consulte as notas de versão e a matriz de builds antes de distribuir para outros sistemas.
+O código da interface é compartilhado entre plataformas, mas cada sistema exige build e validação próprios, especialmente para áudio, bandeja e armazenamento de credenciais.
 
-## Telas do operador
+## Desenvolvimento
 
-O Discador mostra só o status resumido da linha, a discagem e as ações da chamada. Seleção de conta de ligação, cadastro/remoção de contas (com transporte e proxy), Marca e dispositivos de áudio ficam em Configurações. Esta separação é apenas de telas: **não há controle de acesso** (senha, papel ou administrador). Quem tem acesso ao aplicativo ainda consegue abrir as Configurações.
+Para compilar a interface no Linux, instale CMake, um compilador C++17, wxWidgets 3.2 e `nlohmann-json`:
+
+```sh
+cmake -S native-wx -B native-wx/build -DCMAKE_BUILD_TYPE=Release
+cmake --build native-wx/build
+```
+
+O empacotamento completo também requer um runtime Electron Linux x86_64 e o prefixo isolado do Baresip. Consulte [`packaging/README-LINUX.md`](packaging/README-LINUX.md) para preparar esses componentes e gerar os pacotes.
+
+## Identidade visual
+
+O kit de marca está em [`branding/easyphone/`](branding/easyphone/), com logotipos, ícones por tamanho, tokens de design e guia de identidade.
+
+---
+
+Desenvolvido pela equipe 2BX.

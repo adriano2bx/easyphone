@@ -1,4 +1,4 @@
-# Renderer do Easyphone
+# Renderer do easyphone
 
 Interface do softphone, consumindo somente o contrato `window.phone` de `../contracts/phone-bridge.d.ts`.
 
@@ -8,10 +8,10 @@ Interface do softphone, consumindo somente o contrato `window.phone` de `../cont
 |---|---|
 | `index.html` | Estrutura: barra de título, abas superiores (Discador, Recentes, Contatos, Configurações), painel de chamada e as telas. |
 | `app.js` | Lógica do renderer. Estado vem só de `snapshot()` / `onSnapshot()`. Ações chamam a ponte e mostram o erro devolvido pelo motor. |
-| `../ui/styles.css` | Estilos (tokens visuais do Easyphone). |
+| `../ui/styles.css` | Estilos (tokens visuais do easyphone). |
 | `../ui/bridge-offline.js` | Ponte de desenvolvimento. Só é instalada se `window.phone` não existir. |
 | `../ui/qa-fixtures.js` | Fixtures de QA visual, separadas da ponte. Só declara dados em `window.EASYPHONE_QA`; a ponte as usa apenas com `?fixture=`. |
-| `../ui/assets/easyphone-logo-negative.png` | Logo Easyphone do kit de identidade. |
+| `../ui/assets/easyphone-logo-negative.png` | Logo easyphone do kit de identidade. |
 | `demo/main.cjs`, `demo/preload.cjs`, `demo/package.json` | Shell Electron de demonstração: abre a janela e expõe `phoneShell.setWindowMode`. Não é o processo principal. |
 | `run-demo.sh` | Abre a janela demo com o runtime Electron já instalado localmente. |
 | `../qa/capture.cjs`, `../qa/capture.sh` | Gera as capturas em `../qa/screenshots/`. |

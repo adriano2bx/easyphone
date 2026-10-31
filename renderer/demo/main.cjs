@@ -27,7 +27,7 @@ function createWindow() {
     height: MODES.normal.height,
     minWidth: MODES.normal.minWidth,
     minHeight: MODES.normal.minHeight,
-    title: 'Easyphone',
+    title: 'easyphone',
     autoHideMenuBar: true,
     backgroundColor: '#ffffff',
     show: false,

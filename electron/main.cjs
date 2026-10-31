@@ -10,7 +10,7 @@ const { createPhoneEngine, PhoneError, validateAccountDraft, pickLocalAddress } 
 const { validateDestination } = require('../engine/validation.cjs');
 const { createBrandingStore } = require('./branding.cjs');
 
-app.setName('Easyphone');
+app.setName('easyphone');
 // Mantém o cofre criptografado existente durante a troca de identidade visual.
 app.setPath('userData', path.join(app.getPath('appData'), 'Easyphone'));
 
@@ -99,7 +99,7 @@ async function setAudioDevice(kind, deviceId) {
   writeAudioPreferences();
 }
 
-// Binário e módulos vêm do pacote do Easyphone; variáveis de ambiente servem para apontar um build local.
+// Binário e módulos vêm do pacote do easyphone; variáveis de ambiente servem para apontar um build local.
 function baresipPaths() {
   const root = path.join(__dirname, '..', 'packaging', 'baresip');
   const binaryName = process.platform === 'win32' ? 'baresip.exe' : 'baresip';

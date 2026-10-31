@@ -36,7 +36,7 @@ function renderBaresipConfig({ ctrlPort, modulePath, localAddress, caFile, caPat
   const driver = validateDriver(audio.driver);
 
   const lines = [
-    '# Gerado pelo Easyphone para uma sessão local. Não contém credenciais.',
+    '# Gerado pelo easyphone para uma sessão local. Não contém credenciais.',
     `module_path ${modulePath}`,
     'module g711.so',
     'module auconv.so',

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Inspeção somente leitura do ambiente de build do Easyphone.
+# Inspeção somente leitura do ambiente de build do easyphone.
 # Não instala pacotes, não usa sudo e não altera arquivos.
 # Uso: ./check-toolchain.sh   (CMAKE_BIN=/caminho/cmake para testar um CMake isolado)
 set -uo pipefail

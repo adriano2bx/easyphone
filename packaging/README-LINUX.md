@@ -1,6 +1,6 @@
 # easyphone para Linux
 
-Easyphone 0.4.0 para Linux amd64. A interface é wxWidgets nativa; Electron mantém Baresip, o cofre cifrado de contas e a bandeja. O pacote não inclui dados de conta nem senha. Windows e macOS ainda precisam de builds próprios.
+easyphone 0.4.0 para Linux amd64. A interface é wxWidgets nativa; Electron mantém Baresip, o cofre cifrado de contas e a bandeja. O pacote não inclui dados de conta nem senha. Windows e macOS ainda precisam de builds próprios.
 
 ## Instalação portátil por usuário
 
@@ -9,7 +9,7 @@ tar -xzf easyphone-linux-x86_64-v0.4.0.tar.gz
 ./easyphone/INSTALL-LOCAL.sh
 ```
 
-Abra **Easyphone** pelo menu ou execute `~/.local/bin/easyphone`. Para atualizar, rode novamente `INSTALL-LOCAL.sh`. Contas e preferências ficam em `~/.config/Easyphone`.
+Abra **easyphone** pelo menu ou execute `~/.local/bin/easyphone`. Para atualizar, rode novamente `INSTALL-LOCAL.sh`. Contas e preferências ficam em `~/.config/Easyphone`.
 
 Fechar a janela mantém o app na bandeja. Use o ícone para reabrir ou **Sair do easyphone** para desligar o motor SIP.
 

@@ -64,8 +64,8 @@ LAUNCHER
 chmod 755 "$APP/bin/easyphone"
 cat > "$APP/share/applications/easyphone.desktop" <<'DESKTOP'
 [Desktop Entry]
-Name=Easyphone
-Comment=Easyphone — chamadas SIP
+Name=easyphone
+Comment=easyphone — chamadas SIP
 Exec=easyphone
 Icon=easyphone
 Terminal=false
@@ -91,8 +91,8 @@ mkdir -p "$DESKTOP_DIR"
 cp "$APPS/easyphone.desktop" "$DESKTOP_DIR/easyphone.desktop"
 chmod 755 "$DESKTOP_DIR/easyphone.desktop"
 command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$APPS" || true
-echo "Easyphone instalado. Abra pelo menu ou execute: ${HOME}/.local/bin/easyphone"
-echo "Para fixar no painel KDE: abra o Easyphone, clique com o botão direito no ícone do painel e escolha Fixar no Gerenciador de Tarefas."
+echo "easyphone instalado. Abra pelo menu ou execute: ${HOME}/.local/bin/easyphone"
+echo "Para fixar no painel KDE: abra o easyphone, clique com o botão direito no ícone do painel e escolha Fixar no Gerenciador de Tarefas."
 INSTALLER
 chmod 755 "$APP/INSTALL-LOCAL.sh"
 cat > "$APP/UNINSTALL-LOCAL.sh" <<'UNINSTALLER'
@@ -104,7 +104,7 @@ rm -f "$HOME/.local/bin/easyphone" "$DATA_HOME/applications/easyphone.desktop" "
 DESKTOP_DIR="$(xdg-user-dir DESKTOP 2>/dev/null || printf '%s/Desktop' "$HOME")"
 rm -f "$DESKTOP_DIR/easyphone.desktop"
 command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$DATA_HOME/applications" || true
-printf '%s\n' 'Easyphone removido. As contas e preferências em ~/.config/Easyphone foram preservadas.'
+printf '%s\n' 'easyphone removido. As contas e preferências em ~/.config/Easyphone foram preservadas.'
 UNINSTALLER
 chmod 755 "$APP/UNINSTALL-LOCAL.sh"
 # Portátil: runtime dentro do diretório, sem instalação privilegiada.
@@ -122,8 +122,8 @@ Version: $VERSION
 Section: comm
 Priority: optional
 Architecture: amd64
-Maintainer: Easyphone
-Description: Easyphone - SIP softphone
+Maintainer: easyphone
+Description: easyphone - SIP softphone
 CONTROL
 dpkg-deb --build "$DEBROOT" "$OUT/easyphone_${VERSION}_amd64.deb" >/dev/null
 printf 'Pacotes gerados em %s\n' "$OUT"

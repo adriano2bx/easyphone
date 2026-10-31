@@ -1,6 +1,6 @@
 'use strict';
 
-// Logo personalizado do Easyphone, guardado só neste dispositivo (pasta branding do userData).
+// Logo personalizado do easyphone, guardado só neste dispositivo (pasta branding do userData).
 // Este módulo não importa o Electron: recebe o diretório e recebe o caminho escolhido pelo main process.
 // Nada aqui usa rede. Formato e tamanho são validados pelo conteúdo do arquivo, nunca pela extensão.
 const crypto = require('node:crypto');

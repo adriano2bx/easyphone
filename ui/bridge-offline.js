@@ -28,7 +28,7 @@
   const notice = fixture ? FIXTURE_NOTE : NO_ENGINE;
   // Título e faixa de QA só aparecem com ?fixture=; a janela demo sem fixture mostra o título de produto.
   if (fixture) {
-    document.title = 'Easyphone (QA: ' + fixture + ')';
+    document.title = 'easyphone (QA: ' + fixture + ')';
     document.body.dataset.qa = 'true';
   }
 

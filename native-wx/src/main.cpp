@@ -1363,7 +1363,7 @@ class PhoneFrame final : public wxFrame {
 
 };
 
-class EasyphoneApp final : public wxApp {
+class easyphoneApp final : public wxApp {
  public:
   bool OnInit() override {
     wxInitAllImageHandlers();
@@ -1382,4 +1382,4 @@ class EasyphoneApp final : public wxApp {
   PhoneFrame* frame_{};
 };
 
-wxIMPLEMENT_APP(EasyphoneApp);
+wxIMPLEMENT_APP(easyphoneApp);

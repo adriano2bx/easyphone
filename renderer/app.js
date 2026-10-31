@@ -344,7 +344,7 @@
   }
 
   // Marca: logo personalizado vem do main process como bytes e vira data URI aqui (CSP img-src data:).
-  // Sem ponte de marca (demo/harness), mantém o logo Easyphone padrão.
+  // Sem ponte de marca (demo/harness), mantém o logo easyphone padrão.
   const BRAND_MIME = new Set(['image/png', 'image/jpeg', 'image/webp']);
   const brandApi = window.phoneBranding;
   let brandDataUri = null;
@@ -380,7 +380,7 @@
     preview.src = custom ? brandDataUri : '';
     $('brand-status').textContent = custom
       ? 'Logo personalizado guardado neste dispositivo.'
-      : 'Usando o logo Easyphone.';
+      : 'Usando o logo easyphone.';
     $('brand-change').disabled = brandBusy;
     $('brand-reset').disabled = brandBusy || !custom;
   }
@@ -392,7 +392,7 @@
       brandDataUri = await brandLogoFromBridge();
     } catch (error) {
       brandDataUri = null;
-      showNotice(`Não foi possível exibir o logo guardado. Logo Easyphone mantido. ${brandError(error)}`);
+      showNotice(`Não foi possível exibir o logo guardado. Logo easyphone mantido. ${brandError(error)}`);
     }
     renderBrand();
   }
@@ -429,7 +429,7 @@
     try {
       await brandApi.resetLogo();
       brandDataUri = null;
-      showNotice('Logo Easyphone restaurado.', 'info');
+      showNotice('Logo easyphone restaurado.', 'info');
     } catch (error) {
       showNotice(brandError(error));
     } finally {
