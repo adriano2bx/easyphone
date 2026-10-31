@@ -87,10 +87,9 @@ sed "s|^Exec=.*|Exec=${HOME}/.local/bin/easyphone|; s|^Icon=.*|Icon=easyphone|" 
 cp "$DEST/easyphone-icon.png" "$ICON_DIR/easyphone.png"
 chmod 755 "$APPS/easyphone.desktop"
 DESKTOP_DIR="$(xdg-user-dir DESKTOP 2>/dev/null || printf '%s/Desktop' "$HOME")"
-if [ -d "$DESKTOP_DIR" ]; then
-  cp "$APPS/easyphone.desktop" "$DESKTOP_DIR/easyphone.desktop"
-  chmod 755 "$DESKTOP_DIR/easyphone.desktop"
-fi
+mkdir -p "$DESKTOP_DIR"
+cp "$APPS/easyphone.desktop" "$DESKTOP_DIR/easyphone.desktop"
+chmod 755 "$DESKTOP_DIR/easyphone.desktop"
 command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$APPS" || true
 echo "Easyphone instalado. Abra pelo menu ou execute: ${HOME}/.local/bin/easyphone"
 echo "Para fixar no painel KDE: abra o Easyphone, clique com o botão direito no ícone do painel e escolha Fixar no Gerenciador de Tarefas."
