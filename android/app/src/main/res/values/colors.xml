@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Espelho dos tokens de marca (phone-desktop/branding/easyphone/design-tokens.json) para recursos não-Compose
+     (janela, barras do sistema, ícone). A fonte para a UI Compose é ui/theme/Color.kt; manter os dois em sincronia. -->
+<resources>
+    <color name="easyphone_brand">#38F094</color>
+    <color name="easyphone_graphite">#202225</color>
+    <!-- Cor de placa do ícone conforme o master easyphone-app.svg (#2D3034), não o fundo da UI. -->
+    <color name="ic_launcher_background">#2D3034</color>
+</resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Textos em português do Brasil (idioma do produto e do cliente). Não há values-en nesta base:
+  adicionar quando houver requisito de outros idiomas.
+  Apóstrofos evitados de propósito para não exigir escape XML.
+-->
+<resources>
+    <string name="app_name">easyphone</string>
+
+    <!-- Navegação inferior -->
+    <string name="nav_dialer">Discador</string>
+    <string name="nav_contacts">Contatos</string>
+    <string name="nav_recents">Recentes</string>
+    <string name="nav_settings">Configurações</string>
+
+    <!-- Discador -->
+    <string name="dialer_placeholder">Digite um número</string>
+    <string name="dialer_call">Ligar</string>
+    <string name="dialer_backspace">Apagar último dígito</string>
+
+    <!-- Estado de telefonia (indisponível nesta versão) -->
+    <string name="telephony_unavailable_title">Telefonia indisponível</string>
+    <string name="telephony_unavailable_body">Esta versão ainda não possui mecanismo SIP integrado. Nenhuma conta é registrada e nenhuma chamada é feita.</string>
+    <string name="error_sip_unavailable">Telefonia indisponível nesta versão.</string>
+
+    <!-- Estados de chamada -->
+    <string name="call_state_ringing">Tocando</string>
+    <string name="call_state_connecting">Conectando</string>
+    <string name="call_state_early_media">Chamando</string>
+    <string name="call_state_active">Em chamada</string>
+    <string name="call_state_held">Em espera</string>
+    <string name="call_state_ending">Encerrando</string>
+    <string name="call_state_ended">Chamada encerrada</string>
+    <string name="call_state_failed">Falha na chamada</string>
+    <string name="call_unknown_party">Número desconhecido</string>
+    <string name="call_action_answer">Atender</string>
+    <string name="call_action_reject">Recusar</string>
+    <string name="call_action_mute">Silenciar</string>
+    <string name="call_action_unmute">Ativar microfone</string>
+    <string name="call_action_hold">Espera</string>
+    <string name="call_action_resume">Retomar</string>
+    <string name="call_action_hangup">Encerrar</string>
+
+    <!-- Contatos -->
+    <string name="contacts_title">Contatos</string>
+    <string name="contacts_empty_title">Nenhum contato</string>
+    <string name="contacts_empty_body">A importação de contatos ainda não está disponível nesta versão.</string>
+
+    <!-- Recentes -->
+    <string name="recents_title">Recentes</string>
+    <string name="recents_empty_title">Nenhuma chamada recente</string>
+    <string name="recents_empty_body">O histórico aparece aqui quando as chamadas forem realizadas.</string>
+
+    <!-- Configurações -->
+    <string name="settings_title">Configurações</string>
+    <string name="settings_section_telephony">Telefonia</string>
+    <string name="settings_section_account">Conta SIP</string>
+    <string name="settings_account_empty">Nenhuma conta configurada.</string>
+    <string name="settings_account_add">Adicionar conta (indisponível)</string>
+    <string name="settings_section_audio">Áudio</string>
+    <string name="settings_audio_empty">Nenhum dispositivo de áudio disponível.</string>
+    <string name="settings_section_about">Sobre</string>
+    <string name="settings_version">Versão %1$s</string>
+</resources>

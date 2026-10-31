@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema base sem ActionBar. A UI Compose aplica o próprio tema escuro (EasyPhoneTheme).
+         Janela grafite evita flash branco na abertura. -->
+    <style name="Theme.EasyPhone" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/easyphone_graphite</item>
+        <item name="android:statusBarColor">@color/easyphone_graphite</item>
+        <item name="android:navigationBarColor">@color/easyphone_graphite</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

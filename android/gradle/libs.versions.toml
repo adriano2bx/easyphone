@@ -1,0 +1,31 @@
+# Catálogo de versões do easyphone Android.
+# Versões fixadas para compilar com a plataforma Android estável API 36.
+# AGP 9.0.1 usa Gradle 9.1.0 e Kotlin embutido 2.2.10; Compose BOM 2026.06.00 seleciona
+# Compose UI 1.11.3, cujo AAR declara minCompileSdk 35 e AGP mínimo 8.6.
+# O build assembleDebug foi validado; versões de dependências permanecem fixadas para reproduzir
+# a compilação no SDK estável instalado.
+
+[versions]
+agp = "9.0.1"
+kotlin = "2.2.10"
+composeBom = "2026.06.00"
+activityCompose = "1.10.1"
+coreKtx = "1.16.0"
+lifecycle = "2.9.4"
+coroutines = "1.10.2"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

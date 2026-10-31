@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      Permissões mínimas desta base. Nenhuma é perigosa (sem diálogo de runtime).
+      INTERNET: necessária para o transporte SIP futuro. Não há tráfego de rede nesta versão.
+      Intencionalmente ausentes por enquanto (adicionar junto da funcionalidade real):
+        - RECORD_AUDIO / MODIFY_AUDIO_SETTINGS: áudio de chamada (ainda não implementado).
+        - READ_CONTACTS: importação de contatos (tela mostra estado vazio).
+        - READ_CALL_LOG: histórico (tela mostra estado vazio).
+        - POST_NOTIFICATIONS / FOREGROUND_SERVICE: chamada em andamento em segundo plano.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.EasyPhone"
+        tools:targetApi="36">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

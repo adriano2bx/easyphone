@@ -68,6 +68,7 @@ O repositório inclui o código da interface, a integração com o motor SIP, os
 | Sistema | Disponibilidade |
 |---|---|
 | Linux x86_64 | Pacotes `.deb` e portátil disponíveis em Releases |
+| Android | Base nativa Kotlin/Compose incluída em `android/`; motor SIP ainda não integrado |
 | Windows | Build e instalador em desenvolvimento |
 | macOS | Build e instalador em desenvolvimento |
 
