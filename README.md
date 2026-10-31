@@ -2,6 +2,10 @@
 
 O easyphone é um softphone SIP para desktop, desenvolvido pela equipe 2BX. Reunimos discagem, chamadas, contatos, histórico e controles de áudio em uma interface nativa, com suporte a contas SIP convencionais.
 
+![Captura real do easyphone em execução no Linux, com discador e histórico recente](docs/screenshots/easyphone-linux-discador.png)
+
+Captura da versão Linux atual. O perfil de demonstração está sem uma conta SIP cadastrada.
+
 ## Download
 
 Baixe a versão mais recente na página de [Releases](https://github.com/adriano2bx/easyphone/releases). A versão atual oferece pacotes para **Linux x86_64**.
